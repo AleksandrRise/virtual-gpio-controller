@@ -67,7 +67,15 @@ void print_gpio_state(GPIO_Register *gpio) {
 }
 
 int main(void) {
+    PinConfig pins[3];
 
+    PinConfig pin1 = {0, "LED_RED", GPIO_OUTPUT};
+    PinConfig pin2 = {0, "BUTTON", GPIO_INPUT};
+    PinConfig pin3 = {0, "LED_GREEN", GPIO_OUTPUT};
+
+    pins[0] = pin1;
+    pins[1] = pin2;
+    pins[2] = pin3;
 
     return 0;
 }
