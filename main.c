@@ -7,26 +7,35 @@ typedef struct {
     uint8_t IN;
 } GPIO_Register;
 
+int pin_isValid(uint8_t pin) {
+    return pin <= 7;
+}
+
 void set_pin_output(GPIO_Register *gpio, uint8_t pin) {
-    gpio->DIR |= (1 << pin);
+    if (pin_isValid(pin))
+        gpio->DIR |= (1 << pin);
 }
 void set_pin_input(GPIO_Register *gpio, uint8_t pin) {
-    gpio->DIR &= ~(1 << pin);
+    if (pin_isValid(pin))
+        gpio->DIR &= ~(1 << pin);
 }
 
 void write_pin_high(GPIO_Register *gpio, uint8_t pin) {
-    gpio->OUT |= (1 << pin);
+    if (pin_isValid(pin))
+        gpio->OUT |= (1 << pin);
 }
 void write_pin_low(GPIO_Register *gpio, uint8_t pin) {
-    gpio->OUT &= ~(1 << pin);
+    if (pin_isValid(pin))
+        gpio->OUT &= ~(1 << pin);
 }
 
 void toggle_pin(GPIO_Register *gpio, uint8_t pin) {
-    gpio->OUT ^= (1 << pin);
+    if (pin_isValid(pin))
+        gpio->OUT ^= (1 << pin);
 }
 
 int read_pin(GPIO_Register *gpio, uint8_t pin) {
-    return (gpio->IN & (1 << pin)) != 0;
+    return pin_isValid(pin) ? ((gpio->IN & (1 << pin)) != 0) : -1;
 }
 
 int main(void) {
