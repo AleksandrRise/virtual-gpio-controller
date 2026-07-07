@@ -7,24 +7,26 @@ typedef struct {
     uint8_t IN;
 } GPIO_Register;
 
-void set_pin_mode() {
-
+void set_pin_output(GPIO_Register *gpio, uint8_t pin) {
+    gpio->DIR |= (1 << pin);
+}
+void set_pin_input(GPIO_Register *gpio, uint8_t pin) {
+    gpio->DIR &= ~(1 << pin);
 }
 
-void write_pin() {
-
+void write_pin_high(GPIO_Register *gpio, uint8_t pin) {
+    gpio->OUT |= (1 << pin);
+}
+void write_pin_low(GPIO_Register *gpio, uint8_t pin) {
+    gpio->OUT &= ~(1 << pin);
 }
 
-void toggle_pin() {
-
+void toggle_pin(GPIO_Register *gpio, uint8_t pin) {
+    gpio->OUT ^= (1 << pin);
 }
 
-uint8_t read_pin() {
-    return 0;
-}
-
-void print_registers() {
-
+int read_pin(GPIO_Register *gpio, uint8_t pin) {
+    return (gpio->IN & (1 << pin)) != 0;
 }
 
 int main(void) {
