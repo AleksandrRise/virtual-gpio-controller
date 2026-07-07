@@ -49,12 +49,16 @@ void print_register_binary(uint8_t reg) {
     printf("\n");
 }
 
-int main(void) {
-    GPIO_Register gpio = {0};
-    GPIO_Register *GPIOA = &gpio;
+void print_gpio_state(GPIO_Register *gpio) {
+    printf("DIR: "); print_register_binary(gpio->DIR);
+    printf("OUT: "); print_register_binary(gpio->OUT);
+    printf("IN: "); print_register_binary(gpio->IN);
+}
 
-    uint8_t ex = 4;
-    print_register_binary(ex);
+int main(void) {
+    GPIO_Register gpio = {4, 6, 20};
+
+    print_gpio_state(&gpio);
 
     return 0;
 }
