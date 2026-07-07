@@ -42,13 +42,19 @@ int read_pin(GPIO_Register *gpio, uint8_t pin) {
     return pin_isValid(pin) ? ((gpio->IN & mask(pin)) != 0) : -1;
 }
 
+void print_register_binary(uint8_t reg) {
+    for (int i = 7; i >= 0; i--) {
+        ((1u << i) & reg) != 0 ? printf("1") : printf("0");
+    }
+    printf("\n");
+}
+
 int main(void) {
     GPIO_Register gpio = {0};
     GPIO_Register *GPIOA = &gpio;
 
-    printf("%u\n", GPIOA->DIR);
-    printf("%u\n", GPIOA->OUT);
-    printf("%u\n", GPIOA->IN);
+    uint8_t ex = 4;
+    print_register_binary(ex);
 
     return 0;
 }
