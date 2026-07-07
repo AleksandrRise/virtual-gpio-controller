@@ -8,6 +8,12 @@ typedef struct {
 } GPIO_Register;
 
 int main(void) {
-    printf("Hello, World!\n");
+    GPIO_Register gpio = {0};
+    GPIO_Register *GPIOA = &gpio;
+
+    printf("%u\n", GPIOA->DIR);
+    printf("%u\n", GPIOA->OUT);
+    printf("%u\n", GPIOA->IN);
+
     return 0;
 }
