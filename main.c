@@ -56,9 +56,31 @@ void print_gpio_state(GPIO_Register *gpio) {
 }
 
 int main(void) {
-    GPIO_Register gpio = {4, 6, 20};
-
+    GPIO_Register gpio = {0};
+    printf("Initial State: \n");
     print_gpio_state(&gpio);
+
+    set_pin_output(&gpio, 2);
+    printf("Pin Output Set: \n");
+    print_gpio_state(&gpio);
+
+    write_pin_high(&gpio, 2);
+    printf("Pin High Written: \n");
+    print_gpio_state(&gpio);
+
+    toggle_pin(&gpio, 2);
+    printf("Pin Toggled: \n");
+    print_gpio_state(&gpio);
+
+    set_pin_input(&gpio, 1);
+    printf("Pin Input Set: \n");
+    print_gpio_state(&gpio);
+
+    gpio.IN = 2;
+    printf("Input Simulated: \n");
+    print_gpio_state(&gpio);
+
+    printf("Pin read: %d\n", read_pin(&gpio, 1));
 
     return 0;
 }
